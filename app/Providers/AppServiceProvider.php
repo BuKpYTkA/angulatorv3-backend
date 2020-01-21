@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\AuddService\AuddApiClient\Transport\AuddTransport;
+use App\Services\AuddService\AuddApiClient\Transport\AuddTransportInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(AuddTransportInterface::class, function ($app) {
+            $authToken = config('app.api.audd.token');
+            $apiEndpoint = config('app.api.audd.url');
+            return new AuddTransport($authToken, $apiEndpoint);
+        });
     }
 
     /**
