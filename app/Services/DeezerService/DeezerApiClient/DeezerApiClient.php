@@ -8,6 +8,7 @@
 
 namespace App\Services\DeezerService\DeezerApiClient;
 
+use App\Services\DeezerService\DeezerApiClient\DTO\DeezerResultDTOInterface;
 use App\Services\DeezerService\DeezerApiClient\DTO\Factory\DeezerResultDTOFactoryInterface;
 use App\Services\DeezerService\DeezerApiClient\Transport\DeezerTransportInterface;
 
@@ -19,6 +20,8 @@ class DeezerApiClient implements DeezerApiClientInterface
 {
 
     const TRACK_ENDPOINT = 'track';
+
+    const SEARCH_ENDPOINT = 'search';
 
     /**
      * @var DeezerTransportInterface
@@ -54,5 +57,20 @@ class DeezerApiClient implements DeezerApiClientInterface
         $response = $this->transport->get($uri);
         return $this->deezerResultDTOFactory->createDeezerResultDTOFromResponse($response);
     }
+
+    /**
+     * @param string $searchQuery
+     * @return DeezerResultDTOInterface
+     */
+    public function searchTrack($searchQuery)
+    {
+        $uri = static::SEARCH_ENDPOINT;
+        $response = $this->transport->get($uri, [
+            'q' => $searchQuery,
+            'limit' => 1
+        ]);
+        return $this->deezerResultDTOFactory->createDeezerResultDTOFromResponse($response);
+    }
+
 
 }

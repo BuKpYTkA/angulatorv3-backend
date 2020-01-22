@@ -15,6 +15,17 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'api' => [
+        'audd' => [
+            'token' => '908145a2fff54f4800980d03d9dcfcf1.',
+            'url' => 'https://api.audd.io/'
+        ],
+        'deezer' => [
+            'token' => '',
+            'url' => 'https://api.deezer.com/'
+        ]
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

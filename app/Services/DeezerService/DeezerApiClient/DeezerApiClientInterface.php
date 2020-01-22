@@ -23,4 +23,10 @@ interface DeezerApiClientInterface
      */
     public function getDeezerTrack($trackId);
 
+    /**
+     * @param string $searchQuery
+     * @return DeezerResultDTOInterface mixed
+     */
+    public function searchTrack($searchQuery);
+
 }
