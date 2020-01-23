@@ -11,6 +11,8 @@ use App\Services\AuddService\AuddApiClient\Transport\AuddTransportInterface;
 use App\Services\AudioService\AudioService;
 use App\Services\AudioService\AudioServiceInterface;
 use App\Services\AudioService\MockAudioService;
+use App\Services\AudioUploadService\AudioUploadService;
+use App\Services\AudioUploadService\AudioUploadServiceInterface;
 use App\Services\DeezerService\DeezerApiClient\DeezerApiClient;
 use App\Services\DeezerService\DeezerApiClient\DeezerApiClientInterface;
 use App\Services\DeezerService\DeezerApiClient\DTO\Factory\DeezerResultDTOFactory;
@@ -21,6 +23,10 @@ use App\Services\GameService\Factory\GameDTOFactory;
 use App\Services\GameService\Factory\GameDTOFactoryInterface;
 use App\Services\GameService\GameService;
 use App\Services\GameService\GameServiceInterface;
+use App\Services\GameSourceService\GameSourceService;
+use App\Services\GameSourceService\GameSourceServiceInterface;
+use App\Services\StorageService\StorageService;
+use App\Services\StorageService\StorageServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -51,6 +57,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AudioServiceInterface::class, AudioService::class);
         $this->app->bind(GameDTOFactoryInterface::class, GameDTOFactory::class);
         $this->app->bind(GameServiceInterface::class, GameService::class);
+        $this->app->bind(StorageServiceInterface::class, function () {
+            return new StorageService('public');
+        });
+        $this->app->bind(AudioUploadServiceInterface::class, AudioUploadService::class);
+        $this->app->bind(GameSourceServiceInterface::class, GameSourceService::class);
     }
 
     /**
