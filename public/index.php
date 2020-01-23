@@ -56,5 +56,5 @@ $response = $kernel->handle(
 );
 
 $response->send();
-echo $response->exception->getMessage();
+
 $kernel->terminate($request, $response);
