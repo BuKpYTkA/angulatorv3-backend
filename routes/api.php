@@ -14,4 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/user/stats/get', \App\Http\Controllers\MainController::controller() . '@getUserStats')->name('user.stats.get');
+Route::get('/user/stats/get', \App\Http\Controllers\MainController::controller() . '@getUserStats')->name('user.stats.get');
+Route::post('/game/start', \App\Http\Controllers\MainController::controller() . '@startGame')->name('game.start');
+Route::post('/game/finish', \App\Http\Controllers\MainController::controller() . '@finishGame')->name('game.finish');

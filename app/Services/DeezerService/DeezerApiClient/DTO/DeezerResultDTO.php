@@ -27,7 +27,10 @@ class DeezerResultDTO implements DeezerResultDTOInterface
      */
     public function __construct(array $data)
     {
-        $this->data = $data;
+        $this->data = [];
+        if (isset($data['data'][0])) {
+            $this->data = $data['data'][0];
+        }
     }
 
     /**

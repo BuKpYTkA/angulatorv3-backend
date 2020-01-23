@@ -19,11 +19,11 @@ class UserRepository
 
     /**
      * @param int $id
-     * @return User|null
+     * @return User|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
      */
     public function find(int $id)
     {
-        return User::query()->find($id)->first();
+        return User::query()->find($id);
     }
 
     /**
@@ -33,6 +33,17 @@ class UserRepository
     public function findByEmail(string $email)
     {
         return User::query()->where(['email' => $email])->first();
+    }
+
+    /**
+     * @param string $email
+     * @return \Illuminate\Database\Eloquent\Builder|User
+     */
+    public function create(string $email)
+    {
+        return User::query()->create([
+            'email' => $email
+        ]);
     }
 
 }

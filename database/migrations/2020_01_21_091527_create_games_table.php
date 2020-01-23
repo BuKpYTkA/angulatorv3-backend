@@ -16,7 +16,7 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('game_type');
-            $table->boolean('is_win');
+            $table->boolean('is_win')->nullable();
             $table->unsignedBigInteger('answer_id');
             $table->foreign('answer_id')
                 ->references('id')

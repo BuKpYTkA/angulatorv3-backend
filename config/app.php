@@ -17,7 +17,7 @@ return [
 
     'api' => [
         'audd' => [
-            'token' => '908145a2fff54f4800980d03d9dcfcf1.',
+            'token' => '908145a2fff54f4800980d03d9dcfcf1',
             'url' => 'https://api.audd.io/'
         ],
         'deezer' => [

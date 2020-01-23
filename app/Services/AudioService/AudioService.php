@@ -64,7 +64,6 @@ class AudioService implements AudioServiceInterface
     /**
      * @param string $sourceUrl
      * @return DeezerResultDTOInterface
-     * @throws AudioServiceException
      */
     public function recognizeByHumming(string $sourceUrl)
     {
@@ -79,7 +78,7 @@ class AudioService implements AudioServiceInterface
      */
     private function makeSearchTextFromAuddResult(AuddResultDTOInterface $auddResultDTO)
     {
-        return $auddResultDTO->getArtist() . $auddResultDTO->getTitle();
+        return $auddResultDTO->getArtist() . ' ' . $auddResultDTO->getTitle();
     }
 
     /**

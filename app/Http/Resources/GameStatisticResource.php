@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Game;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GameResource extends JsonResource
+class GameStatisticResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,6 +19,15 @@ class GameResource extends JsonResource
          * @var $this Game
          */
 
+        $res = [
+            'id' => $this->getId(),
+            'isWin' => $this->isWin(),
+            'date' => $this->getCreatedAt(),
+            'gameType' => $this->getGameType(),
+            'answerTitle' => $this->getAnswer()->getTitle(),
+            'answerSource' => $this->getAnswer()->getSource(),
+            'gameSource' => $this->getSource()->getSource()
+        ];
         return [
             'id' => $this->getId(),
             'isWin' => $this->isWin(),
