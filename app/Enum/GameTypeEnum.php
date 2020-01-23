@@ -21,4 +21,10 @@ class GameTypeEnum
 
     const LYRICS = 'lyrics';
 
+    const TYPES = [
+        self::SOUND,
+        self::HUMMING,
+        self::LYRICS
+    ];
+
 }

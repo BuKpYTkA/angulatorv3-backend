@@ -51,7 +51,7 @@ class AuddResultDTOFactory implements AuddResultDTOFactoryInterface
      */
     public function createAuddResultDTOFromText(array $response)
     {
-        $data = $response['result'] ?? [];
+        $data = $response['result'][0] ?? [];
         return new AuddResultDTO($data);
 
     }

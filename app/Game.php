@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @property int $id
  * @property string $game_type
- * @property bool $is_win
+ * @property bool|null $is_win
  * @property int $answer_id
  * @property int $user_id
  * @property int $game_source_id
@@ -53,17 +53,17 @@ class Game extends Model
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function isWin(): bool
+    public function isWin()
     {
         return $this->is_win;
     }
 
     /**
-     * @param bool $isWin
+     * @param bool|null $isWin
      */
-    public function setIsWin(bool $isWin): void
+    public function setIsWin(bool $isWin = null)
     {
         $this->is_win = $isWin;
     }
@@ -125,27 +125,27 @@ class Game extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function answer()
     {
-        return $this->hasOne(Answer::class);
+        return $this->belongsTo(Answer::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function source()
     {
-        return $this->hasOne(GameSource::class);
+        return $this->belongsTo(GameSource::class, 'game_source_id', 'id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     /**

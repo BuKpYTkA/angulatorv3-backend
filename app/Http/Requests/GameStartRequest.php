@@ -2,14 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\GameTypeEnum;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class UserStatsRequest
- * @package App\Http\Requests
- */
-class UserStatsRequest extends FormRequest
+class GameStartRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +15,10 @@ class UserStatsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (in_array($this->input('gameType'), GameTypeEnum::TYPES)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -29,16 +29,9 @@ class UserStatsRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'email.email' => 'Invalid email format',
-            'email.string' => 'Email should be a string',
-            'email.required' => 'Email field is required'
+            'email' => 'required|string|email',
+            'gameType' => 'required|string',
+            'source' => 'required|string'
         ];
     }
 
@@ -52,11 +45,34 @@ class UserStatsRequest extends FormRequest
     }
 
     /**
+     * @throws \Exception
+     */
+    public function failedAuthorization()
+    {
+        throw new \Exception('Invalid game type');
+    }
+
+    /**
+     * @return string
+     */
+    public function getGameType()
+    {
+        return $this->input('gameType');
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->input('source');
+    }
+
+    /**
      * @return string
      */
     public function getEmail()
     {
         return $this->input('email');
     }
-
 }
