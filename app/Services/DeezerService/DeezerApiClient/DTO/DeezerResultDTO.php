@@ -31,6 +31,9 @@ class DeezerResultDTO implements DeezerResultDTOInterface
         if (isset($data['data'][0])) {
             $this->data = $data['data'][0];
         }
+        if (isset($data['id'])) {
+            $this->data = $data;
+        }
     }
 
     /**

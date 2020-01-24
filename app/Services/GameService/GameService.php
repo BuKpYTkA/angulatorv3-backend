@@ -15,7 +15,9 @@ use App\Repository\GameRepository\GameRepository;
 use App\Repository\GameSourceRepository\GameSourceRepository;
 use App\Repository\UserRepository\UserRepository;
 use App\Services\AudioService\AudioServiceInterface;
+use App\Services\AudioUploadService\AudioUploadServiceInterface;
 use App\Services\GameService\Factory\GameDTOFactoryInterface;
+use App\Services\GameSourceService\GameSourceServiceInterface;
 
 /**
  * Class GameService
@@ -33,10 +35,6 @@ class GameService implements GameServiceInterface
      */
     private $userRepository;
     /**
-     * @var GameSourceRepository
-     */
-    private $gameSourceRepository;
-    /**
      * @var AnswerRepository
      */
     private $answerRepository;
@@ -48,31 +46,42 @@ class GameService implements GameServiceInterface
      * @var GameDTOFactoryInterface
      */
     private $gameDTOFactory;
+    /**
+     * @var AudioUploadServiceInterface
+     */
+    private $audioUploadService;
+    /**
+     * @var GameSourceServiceInterface
+     */
+    private $gameSourceService;
 
     /**
      * GameService constructor.
      * @param AudioServiceInterface $audioService
      * @param UserRepository $userRepository
-     * @param GameSourceRepository $gameSourceRepository
      * @param AnswerRepository $answerRepository
      * @param GameRepository $gameRepository
      * @param GameDTOFactoryInterface $gameDTOFactory
+     * @param AudioUploadServiceInterface $audioUploadService
+     * @param GameSourceServiceInterface $gameSourceService
      */
     public function __construct(
         AudioServiceInterface $audioService,
         UserRepository $userRepository,
-        GameSourceRepository $gameSourceRepository,
         AnswerRepository $answerRepository,
         GameRepository $gameRepository,
-        GameDTOFactoryInterface $gameDTOFactory
+        GameDTOFactoryInterface $gameDTOFactory,
+        AudioUploadServiceInterface $audioUploadService,
+        GameSourceServiceInterface $gameSourceService
     )
     {
         $this->audioService = $audioService;
         $this->userRepository = $userRepository;
-        $this->gameSourceRepository = $gameSourceRepository;
         $this->answerRepository = $answerRepository;
         $this->gameRepository = $gameRepository;
         $this->gameDTOFactory = $gameDTOFactory;
+        $this->audioUploadService = $audioUploadService;
+        $this->gameSourceService = $gameSourceService;
     }
 
     /**
@@ -88,7 +97,7 @@ class GameService implements GameServiceInterface
         if (!$user) {
             $user = $this->userRepository->create($email);
         }
-        $gameSource = $this->gameSourceRepository->create($source, $gameType);
+        $gameSource = $this->gameSourceService->create($source, $gameType);
         $result = $this->recognizeByGameSource($gameSource);
         $answer = $this->answerRepository->create($result);
         $game = $this->gameRepository->create($user, $gameSource, $answer);
@@ -112,4 +121,5 @@ class GameService implements GameServiceInterface
                 return null;
         }
     }
+
 }

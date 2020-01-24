@@ -50,6 +50,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return response()->json(['data' => json_decode($exception->getMessage())], 500);
+        return response()->json(['data' => $exception->getMessage()], 500);
     }
 }

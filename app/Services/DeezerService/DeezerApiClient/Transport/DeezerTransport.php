@@ -105,9 +105,19 @@ class DeezerTransport implements DeezerTransportInterface
             throw new \Exception('Error: ' . $response->getReasonPhrase(), $response->getStatusCode());
         }
         $response = $this->parse($response);
-        if (!$response || !isset($response['data'])) {
-            throw new \Exception('Error with Deezer api', 500);
+        if (!$response) {
+            $this->throwException();
         }
+        if (!isset($response['data'])) {
+            if (!isset($response['id'])) {
+                $this->throwException();
+            }
+        }
+    }
+
+    private function throwException()
+    {
+        throw new \Exception('Error with Deezer api', 500);
     }
 
     /**
