@@ -107,7 +107,7 @@ class AuddTransport implements AuddTransportInterface
         }
         $response = $this->parse($response);
         if (($response['status'] ?? null) !== static::API_STATUS_OK || !isset($response['result'])) {
-            $error = json_encode($response['error']);
+            $error = json_encode($response);
             throw new \Exception('Error with Audd api: ' . $error, 500);
         }
     }
