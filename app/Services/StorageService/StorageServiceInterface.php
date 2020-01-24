@@ -17,7 +17,8 @@ interface StorageServiceInterface
 {
     /**
      * @param $file
+     * @param string $format
      * @return string
      */
-    public function uploadMp3($file);
+    public function uploadByFormat($file, string $format = '');
 }

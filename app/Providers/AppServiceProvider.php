@@ -13,6 +13,10 @@ use App\Services\AudioService\AudioServiceInterface;
 use App\Services\AudioService\MockAudioService;
 use App\Services\AudioUploadService\AudioUploadService;
 use App\Services\AudioUploadService\AudioUploadServiceInterface;
+use App\Services\Base64DecoderService\Base64DecoderService;
+use App\Services\Base64DecoderService\Base64DecoderServiceInterface;
+use App\Services\Base64DecoderService\Factory\Base64ObjectDTOFactory;
+use App\Services\Base64DecoderService\Factory\Base64ObjectDTOFactoryInterface;
 use App\Services\DeezerService\DeezerApiClient\DeezerApiClient;
 use App\Services\DeezerService\DeezerApiClient\DeezerApiClientInterface;
 use App\Services\DeezerService\DeezerApiClient\DTO\Factory\DeezerResultDTOFactory;
@@ -62,6 +66,8 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(AudioUploadServiceInterface::class, AudioUploadService::class);
         $this->app->bind(GameSourceServiceInterface::class, GameSourceService::class);
+        $this->app->bind(Base64DecoderServiceInterface::class, Base64DecoderService::class);
+        $this->app->bind(Base64ObjectDTOFactoryInterface::class, Base64ObjectDTOFactory::class);
     }
 
     /**

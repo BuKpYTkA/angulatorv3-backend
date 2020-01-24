@@ -33,11 +33,12 @@ class StorageService implements StorageServiceInterface
 
     /**
      * @param $file
+     * @param string $format
      * @return string
      */
-    public function uploadMp3($file)
+    public function uploadByFormat($file, string $format = '')
     {
-        $fileName = uniqid() . '.mp3';
+        $fileName = uniqid() . '.' . $format;
         Storage::disk($this->disk)->put($fileName, $file);
         return Storage::disk($this->disk)->url($fileName);
     }
