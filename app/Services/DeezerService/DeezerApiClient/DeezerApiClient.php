@@ -64,11 +64,14 @@ class DeezerApiClient implements DeezerApiClientInterface
      */
     public function searchTrack($searchQuery)
     {
-        $uri = static::SEARCH_ENDPOINT;
-        $response = $this->transport->get($uri, [
-            'q' => $searchQuery,
-            'limit' => 1
-        ]);
+        $response = [];
+        if ($searchQuery) {
+            $uri = static::SEARCH_ENDPOINT;
+            $response = $this->transport->get($uri, [
+                'q' => $searchQuery,
+                'limit' => 1
+            ]);
+        }
         return $this->deezerResultDTOFactory->createDeezerResultDTOFromResponse($response);
     }
 

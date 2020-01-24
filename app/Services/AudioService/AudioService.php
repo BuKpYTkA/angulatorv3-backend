@@ -74,11 +74,15 @@ class AudioService implements AudioServiceInterface
 
     /**
      * @param AuddResultDTOInterface $auddResultDTO
-     * @return string
+     * @return string|null
      */
     private function makeSearchTextFromAuddResult(AuddResultDTOInterface $auddResultDTO)
     {
-        return $auddResultDTO->getArtist() . ' ' . $auddResultDTO->getTitle();
+        $searchQuery = null;
+        if ($auddResultDTO->getTitle() && $auddResultDTO->getArtist()) {
+            $searchQuery = $auddResultDTO->getArtist() . ' ' . $auddResultDTO->getTitle();
+        }
+        return $searchQuery;
     }
 
     /**
