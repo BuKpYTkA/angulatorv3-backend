@@ -67,6 +67,7 @@ class AudioService implements AudioServiceInterface
      */
     public function recognizeByHumming(string $sourceUrl)
     {
+        $sourceUrl = "https://cdns-preview-4.dzcdn.net/stream/c-47629ba6ee1ffc1c60979df64e870041-1.mp3";
         $auddResultDTO = $this->auddApiClient->recognizeByHumming($sourceUrl);
         $searchQuery = $this->makeSearchTextFromAuddResult($auddResultDTO);
         return $this->deezerApiClient->searchTrack($searchQuery);
