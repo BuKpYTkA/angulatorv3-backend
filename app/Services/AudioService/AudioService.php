@@ -12,6 +12,7 @@ namespace App\Services\AudioService;
 use App\Services\AuddService\AuddApiClient\AuddApiClientInterface;
 use App\Services\AuddService\AuddApiClient\DTO\AuddResultDTOInterface;
 use App\Services\DeezerService\DeezerApiClient\DeezerApiClientInterface;
+use App\Services\DeezerService\DeezerApiClient\DTO\DeezerResultDTO;
 use App\Services\DeezerService\DeezerApiClient\DTO\DeezerResultDTOInterface;
 
 /**
@@ -55,7 +56,7 @@ class AudioService implements AudioServiceInterface
         $auddResultDTO = $this->auddApiClient->recognizeByMusic($sourceUrl, ['deezer']);
         $deezerId = $auddResultDTO->getDeezerId();
         if (!$deezerId) {
-            throw new AudioServiceException('Missing Deezer result from Audd.io API', 500);
+            return new DeezerResultDTO([]);
         }
         return $this->deezerApiClient->getDeezerTrack($deezerId);
 
