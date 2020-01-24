@@ -8,6 +8,7 @@
  */
 
 define('LARAVEL_START', microtime(true));
+ini_set('date.timezone', 'UTC+02');
 
 /*
 |--------------------------------------------------------------------------
