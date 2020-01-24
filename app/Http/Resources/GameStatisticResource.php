@@ -19,15 +19,6 @@ class GameStatisticResource extends JsonResource
          * @var $this Game
          */
 
-        $res = [
-            'id' => $this->getId(),
-            'isWin' => $this->isWin(),
-            'date' => $this->getCreatedAt(),
-            'gameType' => $this->getGameType(),
-            'answerTitle' => $this->getAnswer()->getTitle(),
-            'answerSource' => $this->getAnswer()->getSource(),
-            'gameSource' => $this->getSource()->getSource()
-        ];
         return [
             'id' => $this->getId(),
             'isWin' => $this->isWin(),
